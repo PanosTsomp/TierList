@@ -14,7 +14,7 @@ from rich.table import Table
 from pathlib import Path
 from dotenv import load_dotenv
 
-
+from graphics.py import *
 
 
 
