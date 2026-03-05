@@ -43,7 +43,7 @@ def main():
 
 def start():
     startup_question = "What Do You Want To Do?"
-    options = ["Rate by Album", "Rate Songs", "See Albums Rated", "See Songs Rated", "Make a Tier List", "See Created Tier Lists", "EXIT"]
+    options = ["NOT WORKING ** Rate by Album", "NOT WORKING **  Rate Songs", "NOT WORKING ** See Albums Rated", "NOT WORKING ** See Songs Rated", "Make a Tier List", "See Created Tier Lists", "EXIT"]
     selected_option, index = pick(options, startup_question, indicator="→")
 
     if index == 0:

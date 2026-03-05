@@ -639,6 +639,47 @@
                 }
             ],
             "time": "2026-03-05 22:49:41.411750"
+        },
+        {
+            "tier_list_name": "yui",
+            "artist": "nf",
+            "s_tier": [
+                {
+                    "album": "Perception",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/65613775652434e5111cd24bb02503e4.jpg"
+                }
+            ],
+            "a_tier": [
+                {
+                    "album": "The Search",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/03125956378d531a44e1b7da89aae795.jpg"
+                }
+            ],
+            "b_tier": [
+                {
+                    "album": "HOPE",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/1562d05b1c4daa9e368589517e44a386.jpg"
+                }
+            ],
+            "c_tier": [
+                {
+                    "album": "Mansion",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/37ddc1595e3d3029173b366b44828755.jpg"
+                }
+            ],
+            "d_tier": [
+                {
+                    "album": "Therapy Session",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/f06ed252f28cb5faacf0f90018772a43.jpg"
+                }
+            ],
+            "e_tier": [
+                {
+                    "album": "CLOUDS (THE MIXTAPE)",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/df5f3dd443b0a4c4561ad54449f680e6.jpg"
+                }
+            ],
+            "time": "2026-03-05 22:55:52.029647"
         }
     ]
 }

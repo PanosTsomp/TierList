@@ -15,7 +15,7 @@ def image_generator(file_name, data):
     image_width = 1920
     image_height = 5000
     text_font_size = 30
-    tier_font_size = 64
+    tier_font_size = 44
     try:
         # Prefer a bundled/common font with explicit sizing.
         font = ImageFont.truetype("DejaVuSans.ttf", text_font_size)
@@ -37,12 +37,20 @@ def image_generator(file_name, data):
     col_pos = 0
     increment_size = 200
 
+    def draw_tier_label(draw, x, y, label, fill, text_fill):
+        draw.rectangle((x, y, x + increment_size, y + increment_size), fill=fill)
+        left, top, right, bottom = draw.textbbox((0, 0), label, font=tier_font)
+        text_w = right - left
+        text_h = bottom - top
+        text_x = x + (increment_size - text_w) // 2
+        text_y = y + (increment_size - text_h) // 2
+        draw.text((text_x, text_y), label, font=tier_font, fill=text_fill)
+
     """S Tier"""
-    # leftmost side - make a square with text inside the square and fill color
+    # leftmost side - make a square with text centered inside and fill color
     if col_pos == 0:
         draw = ImageDraw.Draw(image)
-        draw.rectangle((col_pos, row_pos, col_pos + increment_size, row_pos + increment_size), fill="red")
-        draw.text((col_pos + (increment_size//3), row_pos+(increment_size//3)), "S Tier", font=tier_font, fill="white")
+        draw_tier_label(draw, col_pos, row_pos, "S Tier", "red", "white")
         col_pos += increment_size
 
     for album in data["s_tier"]:
@@ -85,8 +93,7 @@ def image_generator(file_name, data):
     """A TIER"""
     if col_pos == 0:
         draw = ImageDraw.Draw(image)
-        draw.rectangle((col_pos, row_pos, col_pos + increment_size, row_pos + increment_size), fill="orange")
-        draw.text((col_pos + (increment_size//3), row_pos+(increment_size//3)), "A Tier", font=tier_font, fill="white")
+        draw_tier_label(draw, col_pos, row_pos, "A Tier", "orange", "white")
         col_pos += increment_size
 
     for album in data["a_tier"]:
@@ -117,8 +124,7 @@ def image_generator(file_name, data):
     """B TIER"""
     if col_pos == 0:
         draw = ImageDraw.Draw(image)
-        draw.rectangle((col_pos, row_pos, col_pos + increment_size, row_pos + increment_size), fill="yellow")
-        draw.text((col_pos + (increment_size//3), row_pos+(increment_size//3)), "B Tier", font=tier_font, fill="black")
+        draw_tier_label(draw, col_pos, row_pos, "B Tier", "yellow", "black")
         col_pos += increment_size
 
     for album in data["b_tier"]:
@@ -149,8 +155,7 @@ def image_generator(file_name, data):
     """C TIER"""
     if col_pos == 0:
         draw = ImageDraw.Draw(image)
-        draw.rectangle((col_pos, row_pos, col_pos + increment_size, row_pos + increment_size), fill="green")
-        draw.text((col_pos + (increment_size//3), row_pos+(increment_size//3)), "C Tier", font=tier_font, fill="black")
+        draw_tier_label(draw, col_pos, row_pos, "C Tier", "green", "black")
         col_pos += increment_size
 
     for album in data["c_tier"]:
@@ -182,8 +187,7 @@ def image_generator(file_name, data):
     """D TIER"""
     if col_pos == 0:
         draw = ImageDraw.Draw(image)
-        draw.rectangle((col_pos, row_pos, col_pos + increment_size, row_pos + increment_size), fill="blue")
-        draw.text((col_pos + (increment_size//3), row_pos+(increment_size//3)), "D Tier", font=tier_font, fill="black")
+        draw_tier_label(draw, col_pos, row_pos, "D Tier", "blue", "black")
         col_pos += increment_size
 
     for album in data["d_tier"]:
@@ -216,8 +220,7 @@ def image_generator(file_name, data):
     """E TIER"""
     if col_pos == 0:
         draw = ImageDraw.Draw(image)
-        draw.rectangle((col_pos, row_pos, col_pos + increment_size, row_pos + increment_size), fill="pink")
-        draw.text((col_pos + (increment_size//3), row_pos+(increment_size//3)), "E Tier", font=tier_font, fill="black")
+        draw_tier_label(draw, col_pos, row_pos, "E Tier", "pink", "black")
         col_pos += increment_size
 
     for album in data["e_tier"]:
