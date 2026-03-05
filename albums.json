@@ -1,6 +1,26 @@
 {
-    "album_ratings": [],
-    "song_ratings": [],
+    "album_ratings": [
+        {
+            "artist": "NF",
+            "album": "The Search",
+            "rating": 6,
+            "time": "2026-03-05T23:11:30"
+        },
+        {
+            "artist": "The script",
+            "album": "Freedom Child",
+            "rating": 8,
+            "time": "2026-03-05T23:12:22"
+        }
+    ],
+    "song_ratings": [
+        {
+            "artist": "NF",
+            "song": "If You Want Love",
+            "rating": 10,
+            "time": "2026-03-05T23:11:56"
+        }
+    ],
     "tier_lists": [
         {
             "tier_list_name": "test1",
