@@ -1,3 +1,10 @@
+import os
+from io import BytesIO
+
+import requests
+from PIL import Image, ImageDraw, ImageFont
+
+
 def image_generator(file_name, data):
 
     # return if the file already exists
@@ -7,8 +14,12 @@ def image_generator(file_name, data):
     # Set the image size and font
     image_width = 1920
     image_height = 5000
-    font = ImageFont.truetype("arial.ttf", 15)
-    tier_font = ImageFont.truetype("arial.ttf", 30)
+    try:
+        font = ImageFont.truetype("arial.ttf", 15)
+        tier_font = ImageFont.truetype("arial.ttf", 30)
+    except OSError:
+        font = ImageFont.load_default()
+        tier_font = ImageFont.load_default()
 
     # Make a new image with the size and background color black
     image = Image.new("RGB", (image_width, image_height), "black")
@@ -29,8 +40,12 @@ def image_generator(file_name, data):
 
     for album in data["s_tier"]:
         # Get the cover art
-        response = requests.get(album["cover_art"])
-        cover_art = Image.open(BytesIO(response.content))
+        try:
+            response = requests.get(album["cover_art"], timeout=8)
+            response.raise_for_status()
+            cover_art = Image.open(BytesIO(response.content))
+        except Exception:
+            cover_art = Image.new("RGB", (increment_size, increment_size), "gray")
 
         # Resize the cover art
         cover_art = cover_art.resize((increment_size, increment_size))
@@ -68,8 +83,12 @@ def image_generator(file_name, data):
         col_pos += increment_size
 
     for album in data["a_tier"]:
-        response = requests.get(album["cover_art"])
-        cover_art = Image.open(BytesIO(response.content))
+        try:
+            response = requests.get(album["cover_art"], timeout=8)
+            response.raise_for_status()
+            cover_art = Image.open(BytesIO(response.content))
+        except Exception:
+            cover_art = Image.new("RGB", (increment_size, increment_size), "gray")
         cover_art = cover_art.resize((increment_size, increment_size))
         image.paste(cover_art, (col_pos, row_pos))
         draw = ImageDraw.Draw(image)
@@ -96,8 +115,12 @@ def image_generator(file_name, data):
         col_pos += increment_size
 
     for album in data["b_tier"]:
-        response = requests.get(album["cover_art"])
-        cover_art = Image.open(BytesIO(response.content))
+        try:
+            response = requests.get(album["cover_art"], timeout=8)
+            response.raise_for_status()
+            cover_art = Image.open(BytesIO(response.content))
+        except Exception:
+            cover_art = Image.new("RGB", (increment_size, increment_size), "gray")
         cover_art = cover_art.resize((increment_size, increment_size))
         image.paste(cover_art, (col_pos, row_pos))
         draw = ImageDraw.Draw(image)
@@ -124,8 +147,12 @@ def image_generator(file_name, data):
         col_pos += increment_size
 
     for album in data["c_tier"]:
-        response = requests.get(album["cover_art"])
-        cover_art = Image.open(BytesIO(response.content))       
+        try:
+            response = requests.get(album["cover_art"], timeout=8)
+            response.raise_for_status()
+            cover_art = Image.open(BytesIO(response.content))
+        except Exception:
+            cover_art = Image.new("RGB", (increment_size, increment_size), "gray")
         cover_art = cover_art.resize((increment_size, increment_size))
         image.paste(cover_art, (col_pos, row_pos))
         draw = ImageDraw.Draw(image)
@@ -153,8 +180,12 @@ def image_generator(file_name, data):
         col_pos += increment_size
 
     for album in data["d_tier"]:
-        response = requests.get(album["cover_art"])
-        cover_art = Image.open(BytesIO(response.content))
+        try:
+            response = requests.get(album["cover_art"], timeout=8)
+            response.raise_for_status()
+            cover_art = Image.open(BytesIO(response.content))
+        except Exception:
+            cover_art = Image.new("RGB", (increment_size, increment_size), "gray")
         cover_art = cover_art.resize((increment_size, increment_size))
         image.paste(cover_art, (col_pos, row_pos))        
         draw = ImageDraw.Draw(image)
@@ -184,8 +215,12 @@ def image_generator(file_name, data):
 
     for album in data["e_tier"]:
 
-        response = requests.get(album["cover_art"])
-        cover_art = Image.open(BytesIO(response.content))
+        try:
+            response = requests.get(album["cover_art"], timeout=8)
+            response.raise_for_status()
+            cover_art = Image.open(BytesIO(response.content))
+        except Exception:
+            cover_art = Image.new("RGB", (increment_size, increment_size), "gray")
         cover_art = cover_art.resize((increment_size, increment_size))    
         image.paste(cover_art, (col_pos, row_pos))
         draw = ImageDraw.Draw(image)
@@ -205,20 +240,3 @@ def image_generator(file_name, data):
     image = image.crop((0, 0, image_width, row_pos))
 
     image.save(f"{file_name}")
-
-
-def see_tier_lists():
-    load_or_create_json()
-    with open("albums.json", "r") as f:
-        data = json.load(f)
-
-    if not data["tier_lists"]:
-        print("❌ [b red]No tier lists have been created yet![/b red]")
-        return
-
-    for key in data["tier_lists"]:
-        image_generator(f"{key['tier_list_name']}.png", key)
-        print(f"✅ [b green]CREATED[/b green] {key['tier_list_name']} tier list.")
-
-    print("✅ [b green]DONE[/b green]. Check the directory for the tier lists.")    
-    return

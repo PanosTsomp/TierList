@@ -14,11 +14,16 @@ from rich.table import Table
 from pathlib import Path
 from dotenv import load_dotenv
 
-from graphics.py import *
+from graphics import image_generator
+
+FALLBACK_COVER_URL = "https://community.mp3tag.de/uploads/default/original/2X/a/acf3edeb055e7b77114f9e393d1edeeda37e50c9.png"
+
+network = None
 
 
 
 def main():
+    global network
     print("Hello from Tier List!")
     # Load .env from project root so it works regardless of launch directory.
     load_dotenv(Path(__file__).resolve().parents[1] / ".env")
@@ -37,7 +42,6 @@ def main():
     start()
 
 def start():
-    global network
     startup_question = "What Do You Want To Do?"
     options = ["Rate by Album", "Rate Songs", "See Albums Rated", "See Songs Rated", "Make a Tier List", "See Created Tier Lists", "EXIT"]
     selected_option, index = pick(options, startup_question, indicator="→")
@@ -67,6 +71,28 @@ def load_or_create_json() -> None:
             ratings = {"album_ratings": [], "song_ratings": [], "tier_lists": []}
             json.dump(ratings, f)
 
+def get_album_list(artist: str, limit: int = 50) -> List[str]:
+    if network is None:
+        raise RuntimeError("Last.fm client is not initialized.")
+
+    top_albums = network.get_artist(artist).get_top_albums(limit=limit)
+    albums: List[str] = []
+    seen = set()
+
+    for item in top_albums:
+        try:
+            album_name = item.item.get_name().strip()
+        except Exception:
+            continue
+
+        if not album_name or album_name in seen:
+            continue
+
+        seen.add(album_name)
+        albums.append(album_name)
+
+    return albums
+
 
 def create_tier_list_helper(albums_to_rank, tier_name):
     # if there are no more albums to rank, return an empty list
@@ -87,11 +113,11 @@ def get_album_cover(artist, album):
     album_cover = album.get_cover_image()
     # check if it is a valid url
     try:
-        response = requests.get(album_cover)
+        response = requests.get(album_cover, timeout=8)
         if response.status_code != 200:
-            album_cover = "https://community.mp3tag.de/uploads/default/original/2X/a/acf3edeb055e7b77114f9e393d1edeeda37e50c9.png"
+            album_cover = FALLBACK_COVER_URL
     except:
-        album_cover = "https://community.mp3tag.de/uploads/default/original/2X/a/acf3edeb055e7b77114f9e393d1edeeda37e50c9.png"
+        album_cover = FALLBACK_COVER_URL
     return album_cover
 
 def create_tier_list():
@@ -109,9 +135,6 @@ def create_tier_list():
         artist = get_artist.get_name()
         albums_to_rank = get_album_list(artist)
 
-        # keep only the album name by splitting the string at the first - and removing the first element
-        albums_to_rank = [x.split(" - ", 1)[1] for x in albums_to_rank[1:]]
-
         question = "What do you want to call this tier list?"
         tier_list_name = input(question).strip()
 
@@ -121,45 +144,35 @@ def create_tier_list():
             tier_list_name = input(question).strip()
 
         # S TIER
-        question = "Select the albums you want to rank in S Tier:"
         s_tier_picks = create_tier_list_helper(albums_to_rank, "S Tier")
-        s_tier_covers = [get_album_cover(artist, album) for album in s_tier_picks]
-        s_tier = [{"album":album,"cover_art": cover} for album, cover in zip(s_tier_picks, s_tier_covers)]
 
         # A TIER
-        question = "Select the albums you want to rank in A Tier:"
         a_tier_picks = create_tier_list_helper(albums_to_rank, "A Tier")
-        a_tier_covers = [get_album_cover(artist, album) for album in a_tier_picks]
-        a_tier = [{"album":album,"cover_art": cover} for album, cover in zip(a_tier_picks, a_tier_covers)]
 
         # B TIER
-        question = "Select the albums you want to rank in B Tier:"
         b_tier_picks = create_tier_list_helper(albums_to_rank, "B Tier")
-        b_tier_covers = [get_album_cover(artist, album) for album in b_tier_picks]
-        b_tier = [{"album":album,"cover_art": cover} for album, cover in zip(b_tier_picks, b_tier_covers)]
 
         # C TIER
-        question = "Select the albums you want to rank in C Tier:"
         c_tier_picks = create_tier_list_helper(albums_to_rank, "C Tier")
-        c_tier_covers = [get_album_cover(artist, album) for album in c_tier_picks]
-        c_tier = [{"album":album,"cover_art": cover} for album, cover in zip(c_tier_picks, c_tier_covers)]
 
         # D TIER
-        question = "Select the albums you want to rank in D Tier:"
         d_tier_picks = create_tier_list_helper(albums_to_rank, "D Tier")
-        d_tier_covers = [get_album_cover(artist, album) for album in d_tier_picks] 
-        d_tier = [{"album":album,"cover_art": cover} for album, cover in zip(d_tier_picks, d_tier_covers)]
+
         # E TIER
-        question = "Select the albums you want to rank in E Tier:"
         e_tier_picks = create_tier_list_helper(albums_to_rank, "E Tier")
-        e_tier_covers = [get_album_cover(artist, album) for album in e_tier_picks]
-        e_tier = [{"album":album,"cover_art": cover} for album, cover in zip(e_tier_picks, e_tier_covers)]
 
         # check if all tiers are empty and if so, exit
         if not any([s_tier_picks, a_tier_picks, b_tier_picks, c_tier_picks, d_tier_picks, e_tier_picks]):
             print("All tiers are empty. Exiting...")
             return
 
+        # Fetch covers once after all selections to keep tier selection responsive.
+        s_tier = [{"album": album, "cover_art": get_album_cover(artist, album)} for album in s_tier_picks]
+        a_tier = [{"album": album, "cover_art": get_album_cover(artist, album)} for album in a_tier_picks]
+        b_tier = [{"album": album, "cover_art": get_album_cover(artist, album)} for album in b_tier_picks]
+        c_tier = [{"album": album, "cover_art": get_album_cover(artist, album)} for album in c_tier_picks]
+        d_tier = [{"album": album, "cover_art": get_album_cover(artist, album)} for album in d_tier_picks]
+        e_tier = [{"album": album, "cover_art": get_album_cover(artist, album)} for album in e_tier_picks]
 
         # # add the albums that were picked to the tier list
         tier_list = {
@@ -181,10 +194,31 @@ def create_tier_list():
         with open("albums.json", "w") as f:
             json.dump(album_file, f, indent=4)
 
+        image_generator(f"{tier_list_name}.png", tier_list)
+        print(f"✅ [b green]CREATED[/b green] {tier_list_name}.png")
         return
 
     except pylast.PyLastError:
         print("❌[b red] Artist not found [/b red]")
+
+
+def see_tier_lists():
+    load_or_create_json()
+    with open("albums.json", "r") as f:
+        data = json.load(f)
+
+    if not data["tier_lists"]:
+        print("❌ [b red]No tier lists have been created yet![/b red]")
+        return
+
+    for key in data["tier_lists"]:
+        image_generator(f"{key['tier_list_name']}.png", key)
+        print(f"✅ [b green]CREATED[/b green] {key['tier_list_name']}.png")
+
+    print("✅ [b green]DONE[/b green]. Check the directory for the tier lists.")
+    return
+
+        
 
 
 if __name__ == "__main__":
