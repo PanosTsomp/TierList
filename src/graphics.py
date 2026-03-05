@@ -14,12 +14,19 @@ def image_generator(file_name, data):
     # Set the image size and font
     image_width = 1920
     image_height = 5000
+    text_font_size = 30
+    tier_font_size = 64
     try:
-        font = ImageFont.truetype("arial.ttf", 15)
-        tier_font = ImageFont.truetype("arial.ttf", 30)
+        # Prefer a bundled/common font with explicit sizing.
+        font = ImageFont.truetype("DejaVuSans.ttf", text_font_size)
+        tier_font = ImageFont.truetype("DejaVuSans-Bold.ttf", tier_font_size)
     except OSError:
-        font = ImageFont.load_default()
-        tier_font = ImageFont.load_default()
+        try:
+            font = ImageFont.truetype("arial.ttf", text_font_size)
+            tier_font = ImageFont.truetype("arial.ttf", tier_font_size)
+        except OSError:
+            font = ImageFont.load_default()
+            tier_font = ImageFont.load_default()
 
     # Make a new image with the size and background color black
     image = Image.new("RGB", (image_width, image_height), "black")

@@ -498,6 +498,147 @@
                 }
             ],
             "time": "2026-03-05 22:44:51.874764"
+        },
+        {
+            "tier_list_name": "utu",
+            "artist": "nf",
+            "s_tier": [
+                {
+                    "album": "Perception",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/65613775652434e5111cd24bb02503e4.jpg"
+                },
+                {
+                    "album": "The Search",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/03125956378d531a44e1b7da89aae795.jpg"
+                },
+                {
+                    "album": "HOPE",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/1562d05b1c4daa9e368589517e44a386.jpg"
+                }
+            ],
+            "a_tier": [
+                {
+                    "album": "Mansion",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/37ddc1595e3d3029173b366b44828755.jpg"
+                },
+                {
+                    "album": "Therapy Session",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/f06ed252f28cb5faacf0f90018772a43.jpg"
+                },
+                {
+                    "album": "CLOUDS (THE MIXTAPE)",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/df5f3dd443b0a4c4561ad54449f680e6.jpg"
+                }
+            ],
+            "b_tier": [
+                {
+                    "album": "The Search (Edit)",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/fd095f0149461e6ff65183084a7674bf.jpg"
+                },
+                {
+                    "album": "NO NAME",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/c1e837e70869051810cdf52e73751a49.jpg"
+                },
+                {
+                    "album": "Fear",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/f52d32dfd6cff1d2c1773b24907b831f.jpg"
+                }
+            ],
+            "c_tier": [
+                {
+                    "album": "WHY",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/d0458c8d1e96270ad024108637298163.jpg"
+                },
+                {
+                    "album": "Warm Up",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/b39307c42bee2ac173337dd1b5f801f0.jpg"
+                },
+                {
+                    "album": "PAID MY DUES",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/5413df069077da02f83d01ad8d609324.jpg"
+                },
+                {
+                    "album": "When I Grow Up",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/b2449c3b8b67af98452ce7abc83e5f4b.jpg"
+                },
+                {
+                    "album": "Let You Down",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/965d223f69413e1fa0222f43e7017bdc.jpg"
+                },
+                {
+                    "album": "Chasing_(Demo)",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/2b3c78bc253d5a46ff594ed6f220eb14.jpg"
+                },
+                {
+                    "album": "CLOUDS",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/4f0e4b4f0cb7998d11aec8f2adfcb3f2.jpg"
+                },
+                {
+                    "album": "Time",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/f96af60e6c52c1d791afd2f05e22a445.jpg"
+                },
+                {
+                    "album": "NF",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/4c6e9c2e3accb3fe79059cb5ceab3dbd.jpg"
+                },
+                {
+                    "album": "MOTTO",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/03a4437b5b603ce8557b4cead311dc4a.jpg"
+                },
+                {
+                    "album": "Lost",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/4d1f85048d55138f0560f1657f87f0f7.jpg"
+                },
+                {
+                    "album": "Sorry",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/96b9e27b681c7bcc96d4bfdd2bd1c3c5.png"
+                },
+                {
+                    "album": "WHO I WAS",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/4aa3a9ae946b2346411c83cbc9ca8cb0.png"
+                },
+                {
+                    "album": "Green Lights",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/a2462c953a2c4af53f4a6bf046db28b6.jpg"
+                },
+                {
+                    "album": "Outro",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/9958ae58aae4f0c78e98a3efbea87b1f.jpg"
+                },
+                {
+                    "album": "CLOUDS (Edit)",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/d62641802ae553d355ea8fb5ddde532e.png"
+                }
+            ],
+            "d_tier": [
+                {
+                    "album": "I Just Wanna Know",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/0702d1e3047f22942e86f2df71a59e5c.jpg"
+                },
+                {
+                    "album": "Intro 2",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/e1d8913939d587f32d1e2c1e848d0dde.jpg"
+                },
+                {
+                    "album": "Wait",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/b3498abd86555b69af587de2832d6f36.png"
+                }
+            ],
+            "e_tier": [
+                {
+                    "album": "Intro",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/d371111f8fda4e93ce003eeae47acd59.jpg"
+                },
+                {
+                    "album": "The Search (Edit) - Single",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/fde5e3720bc0141b6420073a69473a5c.jpg"
+                },
+                {
+                    "album": "The Search - Single",
+                    "cover_art": "https://lastfm.freetls.fastly.net/i/u/300x300/f059946a88c0917d938ad653a3731ccf.jpg"
+                }
+            ],
+            "time": "2026-03-05 22:49:41.411750"
         }
     ]
 }
