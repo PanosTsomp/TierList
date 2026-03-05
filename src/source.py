@@ -1,20 +1,23 @@
 import json
 import os
 from datetime import datetime
-from io import BytesIO
 from typing import List
 
 import pylast
 import requests
 from pick import pick
-from PIL import Image, ImageDraw, ImageFont
 from rich import print
-from rich.panel import Panel
-from rich.table import Table
 from pathlib import Path
 from dotenv import load_dotenv
 
 from graphics import image_generator
+from rating import (
+    load_or_create_json,
+    rate_by_album,
+    rate_by_song,
+    see_albums_rated,
+    see_songs_rated,
+)
 
 FALLBACK_COVER_URL = "https://community.mp3tag.de/uploads/default/original/2X/a/acf3edeb055e7b77114f9e393d1edeeda37e50c9.png"
 
@@ -42,34 +45,33 @@ def main():
     start()
 
 def start():
-    startup_question = "What Do You Want To Do?"
-    options = ["NOT WORKING ** Rate by Album", "NOT WORKING **  Rate Songs", "NOT WORKING ** See Albums Rated", "NOT WORKING ** See Songs Rated", "Make a Tier List", "See Created Tier Lists", "EXIT"]
-    selected_option, index = pick(options, startup_question, indicator="→")
+    while True:
+        startup_question = "What Do You Want To Do?"
+        options = [
+            "Rate by Album",
+            "Rate Songs",
+            "See Albums Rated",
+            "See Songs Rated",
+            "Make a Tier List",
+            "See Created Tier Lists",
+            "EXIT",
+        ]
+        _, index = pick(options, startup_question, indicator="→")
 
-    if index == 0:
-        rate_by_album()
-    elif index == 1:
-        rate_by_song()
-    elif index == 2:
-        see_albums_rated()
-    elif index == 3:
-        see_songs_rated()
-    elif index == 4:
-        create_tier_list()
-    elif index == 5:
-        see_tier_lists()
-    elif index == 6:
-        exit()
-
-def load_or_create_json() -> None:
-    if os.path.exists("albums.json"):
-        with open("albums.json") as f:
-            ratings = json.load(f)
-    else:
-        # create a new json file with empty dict
-        with open("albums.json", "w") as f:
-            ratings = {"album_ratings": [], "song_ratings": [], "tier_lists": []}
-            json.dump(ratings, f)
+        if index == 0:
+            rate_by_album(network)
+        elif index == 1:
+            rate_by_song(network)
+        elif index == 2:
+            see_albums_rated()
+        elif index == 3:
+            see_songs_rated()
+        elif index == 4:
+            create_tier_list()
+        elif index == 5:
+            see_tier_lists()
+        elif index == 6:
+            break
 
 def get_album_list(artist: str, limit: int = 50) -> List[str]:
     if network is None:
@@ -121,9 +123,7 @@ def get_album_cover(artist, album):
     return album_cover
 
 def create_tier_list():
-    load_or_create_json()
-    with open("albums.json") as f:
-        album_file = json.load(f)
+    album_file = load_or_create_json()
 
     print("TIERS - S, A, B, C, D, E")
 
@@ -203,9 +203,7 @@ def create_tier_list():
 
 
 def see_tier_lists():
-    load_or_create_json()
-    with open("albums.json", "r") as f:
-        data = json.load(f)
+    data = load_or_create_json()
 
     if not data["tier_lists"]:
         print("❌ [b red]No tier lists have been created yet![/b red]")
